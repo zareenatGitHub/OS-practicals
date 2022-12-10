@@ -1,0 +1,68 @@
+#include <iostream>
+using namespace std;
+struct mainmemory
+{
+    int *array1;
+};
+void firstfit(mainmemory m1, int n)
+{
+    int firstfit_for_a;
+    int a;
+    cout << "please enter the size of process you want to enter" << endl;
+    cin >> a;
+    for (int i = 0; i < n; i++)
+    {
+        if (m1.array1[i] >= a)
+        {
+            firstfit_for_a = m1.array1[i];
+            break;
+        }
+    }
+    cout << "first fit for your process :" << firstfit_for_a << endl;
+}
+void bestfit(mainmemory m1, int n)
+{
+    int a;
+    cout << "please enter the size of process you want to enter" << endl;
+    cin >> a;
+    int bestfit = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (m1.array1[i] >= a && m1.array1[i] <= bestfit)
+            bestfit = m1.array1[i];
+        else if (bestfit == 0 && m1.array1[i] >= a)
+            bestfit = m1.array1[i];
+    }
+    cout << "best fit for your process :" << bestfit << endl;
+}
+void worstfit(mainmemory m1, int n)
+{
+    int a;
+    cout << "please enter the size of process you want to enter" << endl;
+    cin >> a;
+    int worstfit = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (m1.array1[i] >= a && m1.array1[i] >= worstfit)
+            worstfit = m1.array1[i];
+        else if (worstfit == 0 && m1.array1[i] >= a)
+            worstfit = m1.array1[i];
+    }
+    cout << "worst fit for your process :" << worstfit << endl;
+}
+int main()
+{
+    mainmemory m1;
+    cout << "please tell the size of the main memory" << endl;
+    int n;
+    cin >> n;
+    m1.array1 = new int(n); // declaration of array with size n
+    cout << "please input the sizes of memory slots in the memory" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> m1.array1[i];
+    }
+    firstfit(m1, n);
+    bestfit(m1, n);
+    worstfit(m1, n);
+}
