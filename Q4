@@ -1,0 +1,32 @@
+import os 
+from stat import *
+
+statinfo=os.stat('demo.txt')
+mode=statinfo.st_mode
+
+if S_ISDIR(mode):
+	print("Directory")
+
+elif S_ISREG(mode):
+	print("Regular File")
+
+if(mode & S_IXUSR):
+	print("Executable User")
+elif (mode & S_IWUSR):
+	print("Writable User")
+elif (mode & S_IRUSR):
+	print("Readable User")
+
+if (mode & S_IXOTH):
+	print("Executable Others")
+elif (mode & S_IWOTH):
+	print("Writable Others")
+elif (mode & S_IROTH):
+	print("Readable Others")
+
+filePerm=filemode(mode)
+
+print("File Permissions are",filePerm)
+
+print("File access time is ",statinfo.st_mode)
+#print(statinfo.st_mode)
