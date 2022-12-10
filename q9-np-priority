@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+
+class Process
+{
+public:
+   int pid;
+   int bt;
+   int wt;
+   int tt;
+   int priority;
+   float Avgwt;
+   float Avgtt;
+};
+
+int main()
+{
+   int n;
+   int TotalWT = 0;
+   int TotalTT = 0;
+   cout << "Enter the no. of Processes : ";
+   cin >> n;
+   Process proc[n];
+   proc[0].wt = 0;
+
+   for (int i = 0; i < n; i++)
+   {
+      cout << "Enter burst Time for Process " << i + 1 << " : ";
+      cin >> proc[i].bt;
+      cout << "Enter priority for process(lowest has highest priority)" << i + 1 << ":";
+      cin >> proc[i].priority;
+   }
+
+   for (int i = 0; i < n; i++)
+   {
+      proc[i].pid = i + 1;
+
+      int temp;
+
+      for (int j = 0; j < n; j++)
+      {
+         for (int i = 0; i < n - 1; i++)
+         {
+            if (proc[i].priority > proc[i + 1].priority)
+            {
+               temp = proc[i].priority;
+               proc[i].priority = proc[i + 1].priority;
+               proc[i + 1].priority = temp;
+
+               temp = proc[i].bt;
+               proc[i].bt = proc[i + 1].bt;
+               proc[i + 1].bt = temp;
+
+               temp = proc[i].pid;
+               proc[i].pid = proc[i + 1].pid;
+               proc[i + 1].pid = temp;
+            }
+         }
+      }
+   }
+   for (int i = 0; i < n; i++)
+   {
+      proc[i + 1].wt = proc[i].wt + proc[i].bt;
+      proc[i].tt = proc[i].wt + proc[i].bt;
+      TotalWT = TotalWT + proc[i].wt;
+      TotalTT = TotalTT + proc[i].wt + proc[i].bt;
+   }
+
+   cout << "PID     PR   BT   WT   TT" << endl;
+   for (int i = 0; i < n; i++)
+   {
+      cout << "P[" << proc[i].pid << "]    " << proc[i].priority << "   " << proc[i].bt << "    " << proc[i].wt << "    " << proc[i].tt << endl;
+   }
+   cout << n << TotalWT;
+   cout << "Average Waiting Time : " << TotalWT / n << endl;
+   cout << "Average Turnaround Time : " << TotalTT / n << endl;
+}
+
