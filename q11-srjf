@@ -1,0 +1,48 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int at[10],bt[10],rt[10],completion;
+    int i,smallest,remain=0,n,time;
+    int totwt=0,tottt=0;
+
+    cout<<"Enter number of processes:";
+    cin>>n;
+    for (i=0;i<n;i++)
+    {
+        cout<<"\n Enter arrival and burst time of process "<<i+1<<" : ";
+        cin>>at[i];
+        cin>>bt[i];
+        rt[i]=bt[i];
+
+    }
+    cout<<"\n\nProcess \t Turnaround time\t Waiting time\n\n";
+    for (time=0;remain!=n;time++)
+    {
+        for (i=0;i<n;i++)
+        {
+            if (at[i]<=time && rt[i])
+            {
+                smallest=i;
+            }
+        }
+        rt[smallest]--;
+        if (rt[smallest]==0)
+        {
+            remain++;
+            completion=time+1;
+            int a= completion-bt[smallest]-at[smallest];
+
+            cout<<smallest+1<<"\t\t"<<completion-at[smallest]<<"\t\t"<<a<<endl;
+            
+            totwt = totwt+ a;
+            
+            tottt += completion-at[smallest];
+
+        }
+    }
+    
+    cout<<"Average waiting time : "<<totwt*1.0/n<<endl;
+    cout<<"Average turnaround time : "<<tottt*1.0/n<<endl;
+}
